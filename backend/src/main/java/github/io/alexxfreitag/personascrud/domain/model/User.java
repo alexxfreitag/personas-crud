@@ -1,10 +1,17 @@
 package github.io.alexxfreitag.personascrud.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -19,15 +26,24 @@ public class User {
     private UUID id;
 
     @Column(name = "name")
+    @NotEmpty(message = "Field 'name' is required")
     private String name;
+
+    @Column(name = "cpf")
+    @NotEmpty(message = "Field 'cpf' is required")
+    private String cpf;
 
     @Column(name = "gender")
     private String gender;
 
     @Column(name = "email")
+    @Email
     private String email;
 
     @Column(name = "date_of_birth")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateOfBirth;
 
     @Column(name = "nacionality")
@@ -35,9 +51,6 @@ public class User {
 
     @Column(name = "naturality")
     private String naturality;
-
-    @Column(name = "cpf")
-    private int cpf;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -47,15 +60,14 @@ public class User {
 
     public User() {}
 
-    public User(UUID id, String name, String gender, String email, LocalDate dateOfBirth, String nacionality, String naturality, int cpf) {
-        this.id = id;
+    public User(String name, String cpf, String gender, String email, LocalDate dateOfBirth, String nacionality, String naturality) {
         this.name = name;
+        this.cpf = cpf;
         this.gender = gender;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.nacionality = nacionality;
         this.naturality = naturality;
-        this.cpf = cpf;
     }
 
     public UUID getId() {
@@ -72,6 +84,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getGender() {
@@ -114,11 +134,16 @@ public class User {
         this.naturality = naturality;
     }
 
-    public int getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(int cpf) {
-        this.cpf = cpf;
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", nacionality='" + nacionality + '\'' +
+                ", naturality='" + naturality + '\'' +
+                '}';
     }
 }

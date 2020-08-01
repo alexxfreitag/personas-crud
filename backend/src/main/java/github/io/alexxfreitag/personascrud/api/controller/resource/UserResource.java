@@ -2,11 +2,11 @@ package github.io.alexxfreitag.personascrud.api.controller.resource;
 
 import github.io.alexxfreitag.personascrud.domain.model.User;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
@@ -17,4 +17,7 @@ public interface UserResource {
 
     @GetMapping
     ResponseEntity<List<User>> getUsers();
+
+    @PostMapping
+    ResponseEntity<User> createUser(@RequestBody @Valid User user);
 }
