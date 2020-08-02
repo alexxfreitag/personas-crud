@@ -33,7 +33,7 @@ public class User {
 
     @Column(name = "cpf")
     @NotEmpty(message = "Cpf is required")
-    @Size(max = 11, message = "Cpf must contains only 11 numbers")
+    @Size(min = 11, max = 11, message = "Cpf must contains only 11 numbers")
     private String cpf;
 
     @Column(name = "gender")

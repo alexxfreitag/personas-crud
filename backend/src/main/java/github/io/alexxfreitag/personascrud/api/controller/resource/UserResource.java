@@ -16,7 +16,7 @@ public interface UserResource {
     ResponseEntity<String> teste();
 
     @GetMapping
-    ResponseEntity<List<User>> getUsers();
+    List<User> getUsers();
 
     @PostMapping
     ResponseEntity<User> createUser(@RequestBody @Valid User user);
