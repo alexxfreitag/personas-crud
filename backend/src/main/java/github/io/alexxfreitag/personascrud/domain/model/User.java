@@ -10,10 +10,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -33,7 +30,7 @@ public class User {
 
     @Column(name = "cpf")
     @NotEmpty(message = "Cpf is required")
-    @Size(max = 11, message = "Cpf must contains only 11 numbers")
+    @Size(min = 11, max = 11, message = "Cpf must contains only 11 numbers")
     private String cpf;
 
     @Column(name = "gender")
@@ -47,7 +44,7 @@ public class User {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    @NotBlank(message = "Date of birth is required")
+    @NotNull(message = "Date of birth is required")
     private LocalDate dateOfBirth;
 
     @Column(name = "nacionality")
