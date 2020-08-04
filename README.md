@@ -17,10 +17,10 @@
 ## ✔ Features
 - List and create users
 - Get github link by acessing "/source" route
-- Block unauthorized access (basic authentication with existent username/password
+- Block unauthorized access (basic authentication with existent username/password)
 - Validates the request data on the backend
+- Blocks the creation of a user with a CPF that already exists in the database
 - Stores creation date and last update
-
 
 ## :information_source: How To Use
 
