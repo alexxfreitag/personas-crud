@@ -23,11 +23,6 @@ public class UserController implements UserResource {
     }
 
     @Override
-    public ResponseEntity<String> teste() {
-        return ResponseEntity.ok("Connection sucessfuly");
-    }
-
-    @Override
     public List<User> getUsers() {
         return userRepository.findAll();
     }
