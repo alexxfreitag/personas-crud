@@ -11,6 +11,7 @@
 ## 🎯 To do
 - [ ] (Both) Create a docker image
 - [ ] (Backend) Finish unit tests
+- [ ] (Backend) Create documentation (Swagger)
 - [ ] (Frontend) Include form validation
 - [ ] (Frontend) Handle errors returned by the backend
 
