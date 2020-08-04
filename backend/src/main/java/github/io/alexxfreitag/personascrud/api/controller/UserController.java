@@ -28,6 +28,15 @@ public class UserController implements UserResource {
     }
 
     @Override
+    public ResponseEntity<User> getUser(UUID id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @Override
     public ResponseEntity<User> createUser(User user) {
 
         User savedUser = this.userService.saveUser(user);
