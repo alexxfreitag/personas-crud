@@ -5,13 +5,21 @@
 <h2 align="center">🚧 Under construction... 🚧</h2>
 
 <h4 align="center">
-  A ReactJs and Spring Boot application to manager users.
+  A ReactJs and Spring Boot application with PostgreSQL to manager users.
 </h4>
 
 ## 🎯 To do
-- [ ] Create a docker image for both servers
-- [ ] Finish unit tests
-- [ ] Include form validation
+- [ ] (Both) Create a docker image for both servers
+- [ ] (Backend) Finish unit tests
+- [ ] (Frontend) Include form validation
+- [ ] (Frontend) Handle errors returned by the backend
+
+## ✔ Features
+- List and create users
+- Get github link by acessing "/source" route
+- Block unauthorized access (basic authentication with existent username/password
+- Validates the request data on the backend
+- Stores creation date and last update
 
 
 ## :information_source: How To Use
