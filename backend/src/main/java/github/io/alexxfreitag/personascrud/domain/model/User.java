@@ -30,7 +30,7 @@ public class User {
 
     @Column(name = "cpf")
     @NotEmpty(message = "Cpf is required")
-    @Size(min = 11, max = 11, message = "Cpf must contains only 11 numbers")
+    @Size(min = 14, max = 14, message = "Cpf field must contains only 14 characters")
     private String cpf;
 
     @Column(name = "gender")
@@ -41,7 +41,7 @@ public class User {
     private String email;
 
     @Column(name = "date_of_birth")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @NotNull(message = "Date of birth is required")
