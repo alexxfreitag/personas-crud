@@ -20,3 +20,18 @@ export const Form = styled.form`
     margin: 5px;
   }
 `;
+
+export const Users = styled.div`
+  margin-top: 20px;
+
+  div {
+    display: flex;
+  }
+
+  strong {
+    font-size: 20px;
+  }
+  p {
+    font-size: 16px;
+  }
+`;
