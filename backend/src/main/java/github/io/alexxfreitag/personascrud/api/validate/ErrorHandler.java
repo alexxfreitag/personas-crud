@@ -35,7 +35,7 @@ public class ErrorHandler {
         return ResponseEntity.unprocessableEntity().body(messages);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler
     public ResponseEntity<List<String>> userNotFoundException(UserNotFoundException exception) {
 
         List<String> messages = new ArrayList<>();
