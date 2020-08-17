@@ -11,8 +11,8 @@ import java.util.UUID;
 public interface UserService {
     User saveUser(User user);
     ResponseEntity<User> createUser(User user) throws UserAlreadyExistsException;
-    ResponseEntity<?> updateUser(UUID id, User user) throws UserAlreadyExistsException;
-    ResponseEntity<?> deleteUser(UUID id);
+    ResponseEntity<User> updateUser(UUID id, User user) throws UserAlreadyExistsException;
+    ResponseEntity<User> deleteUser(UUID id);
     List<User> getUsers();
-    ResponseEntity<?> getUser(UUID id);
+    ResponseEntity<User> getUser(UUID id);
 }

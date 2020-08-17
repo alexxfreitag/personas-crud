@@ -1,6 +1,7 @@
 package github.io.alexxfreitag.personascrud.api.validate;
 
 import github.io.alexxfreitag.personascrud.api.exception.UserAlreadyExistsException;
+import github.io.alexxfreitag.personascrud.api.exception.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,5 +33,15 @@ public class ErrorHandler {
         messages.add(exception.getMessage());
 
         return ResponseEntity.unprocessableEntity().body(messages);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<List<String>> userNotFoundException(UserNotFoundException exception) {
+
+        List<String> messages = new ArrayList<>();
+        messages.add(exception.getMessage());
+
+        return ResponseEntity.notFound().build();
+
     }
 }
