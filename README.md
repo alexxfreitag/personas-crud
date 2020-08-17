@@ -9,10 +9,10 @@
 </h4>
 
 ## 🎯 To do
-- [ ] (Both) Create a docker image
+- [x] (Backend) Create a docker image
 - [ ] (Backend) Finish unit tests
 - [ ] (Backend) Create documentation (Swagger)
-- [ ] (Frontend) Include form validation
+- [x] (Frontend) Include form validation
 - [x] (Frontend) Handle errors returned by the backend
 
 ## ✔ Features
