@@ -37,7 +37,7 @@ $ cd personas-crud
 # Go into the backend folder, install dependencies and start the server
 $ cd backend/
 $ mvn clean package
-$ ./mvnw spring-boot:run
+$ mvn spring-boot:run
 
 OR
 
