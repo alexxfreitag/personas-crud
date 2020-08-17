@@ -1,6 +1,7 @@
 package github.io.alexxfreitag.personascrud.api.controller;
 
 import github.io.alexxfreitag.personascrud.api.controller.resource.UserResource;
+import github.io.alexxfreitag.personascrud.api.exception.UserAlreadyExistsException;
 import github.io.alexxfreitag.personascrud.api.service.UserService;
 import github.io.alexxfreitag.personascrud.domain.model.User;
 import github.io.alexxfreitag.personascrud.domain.repository.UserRepository;
@@ -55,6 +56,10 @@ public class UserController implements UserResource {
 
     @Override
     public ResponseEntity<?> updateUser(UUID id, User user) {
+        Optional<User> userFounded = this.userRepository.findByCpf(user.getCpf());
+        if (userFounded.isPresent()) {
+            throw new UserAlreadyExistsException("A user with this CPF already exists.");
+        }
         return this.userRepository.findById(id).map(userData -> {
             if (!user.getCpf().isEmpty()) userData.setCpf(user.getCpf());
             if (!user.getName().isEmpty()) userData.setName(user.getName());
