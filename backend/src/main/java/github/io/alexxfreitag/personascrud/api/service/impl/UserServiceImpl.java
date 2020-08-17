@@ -25,8 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) throws UserAlreadyExistsException {
-
+    public User saveUser(User user) {
         this.userRepository.save(user);
         return user;
     }
