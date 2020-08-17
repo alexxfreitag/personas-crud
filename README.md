@@ -51,6 +51,8 @@ $ yarn install
 $ yarn serve
 ```
 
+After this, you'll be able to acess the backend with http://localhost:9090 and the frontend with http://localhost:8080.
+
 <p align="center">
   <a href="https://github.com/alexxfreitag/personas-crud/blob/master/.github/PersonaCRUDRoutes.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
 </p>
