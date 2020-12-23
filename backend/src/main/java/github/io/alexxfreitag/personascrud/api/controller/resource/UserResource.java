@@ -13,9 +13,6 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 public interface UserResource {
 
-    @GetMapping("/test")
-    ResponseEntity<String> teste();
-
     @GetMapping
     List<User> getUsers();
 
