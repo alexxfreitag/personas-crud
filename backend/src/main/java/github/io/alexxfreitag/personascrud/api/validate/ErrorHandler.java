@@ -17,8 +17,6 @@ public class ErrorHandler {
 
     @ExceptionHandler
     public ResponseEntity<Map<String, String>> validationException(MethodArgumentNotValidException exception) {
-
-        System.out.println("exceptionaaaaaaaa");
         Map<String, String> errors = new HashMap<>();
         exception.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
@@ -30,7 +28,6 @@ public class ErrorHandler {
 
     @ExceptionHandler
     public ResponseEntity<List<String>> userAlreadyExistsException(UserAlreadyExistsException exception) {
-        System.out.println("sdfsdfsdf");
         List<String> messages = new ArrayList<>();
         messages.add(exception.getMessage());
 
