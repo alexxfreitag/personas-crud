@@ -42,13 +42,13 @@ public class UserServiceTest {
 
     @Test
     public void shouldCreateAndSaveUserInRepository() throws Exception {
-        userService.saveUser(user);
+        userService.createUser(user);
         verify(userRepository).save(user);
     }
 
     @Test(expected = UserAlreadyExistsException.class)
     public void shouldNotCreateTwoUsersWithSameCPF() throws UserAlreadyExistsException {
         when(userRepository.findByCpf(CPF)).thenReturn(Optional.of(user));
-        userService.saveUser(user);
+        userService.createUser(user);
     }
 }

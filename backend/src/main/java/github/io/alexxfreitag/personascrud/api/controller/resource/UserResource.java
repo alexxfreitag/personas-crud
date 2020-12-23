@@ -14,16 +14,16 @@ import javax.validation.Valid;
 public interface UserResource {
 
     @GetMapping
-    List<User> getUsers();
+    ResponseEntity<List<User>> getUsers();
 
     @GetMapping("/{id}")
-    ResponseEntity<User> getUser(@PathVariable UUID id);
+    ResponseEntity<?> getUser(@PathVariable UUID id);
 
     @PostMapping
     ResponseEntity<User> createUser(@RequestBody @Valid User user);
 
     @DeleteMapping("/{id}")
-    ResponseEntity<User> deleteUser(@PathVariable UUID id);
+    ResponseEntity<?> deleteUser(@PathVariable UUID id);
 
     @PutMapping("/{id}")
     ResponseEntity<?> updateUser(@PathVariable UUID id, @RequestBody @Valid User user);
