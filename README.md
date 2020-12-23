@@ -15,7 +15,7 @@
 - [ ] (Frontend) Handle errors returned by the backend
 
 ## ✔ Features
-- List and create users
+- List, create and delete users
 - Get github link by acessing "/source" route
 - Block unauthorized access (basic authentication with existent username/password)
 - Validates the request data on the backend
