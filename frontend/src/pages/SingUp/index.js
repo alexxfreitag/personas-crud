@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import api from '../../services/api';
-import { Container, Form } from './styles';
+import { Container, Form, Users } from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -12,6 +12,7 @@ export default function SingUp() {
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [nacionality, setNacionality] = useState('');
   const [naturality, setNaturality] = useState('');
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     api
@@ -22,6 +23,7 @@ export default function SingUp() {
         },
       })
       .then((response) => {
+        setUsers(response.data);
         console.log(response.data);
       });
   }, []);
@@ -29,7 +31,7 @@ export default function SingUp() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const log = {
+    const data = {
       name,
       cpf,
       gender,
@@ -38,19 +40,12 @@ export default function SingUp() {
       nacionality,
       naturality,
     };
-    console.log(log);
 
     api
       .post(
         `/users`,
         {
-          name,
-          cpf,
-          gender,
-          email,
-          dateOfBirth,
-          nacionality,
-          naturality,
+          data,
         },
         {
           auth: {
@@ -128,6 +123,17 @@ export default function SingUp() {
         />
 
         <Button type="submit">Cadastrar</Button>
+      </Form>
+      <Form>
+        <strong>Users created</strong>
+        <Users>
+          {users.map((user) => (
+            <div key={user.id}>
+              <strong>{user.name}</strong>
+              <p>{user.email}</p>
+            </div>
+          ))}
+        </Users>
       </Form>
     </Container>
   );
