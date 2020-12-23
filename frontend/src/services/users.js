@@ -3,7 +3,6 @@ import request from '../common/request';
 class UserService {
 
   getAll() {
-    //const token = Buffer.from(`admin:123456`, 'utf8').toString('base64');
     return request.get('/users');
   }
 

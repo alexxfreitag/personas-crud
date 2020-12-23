@@ -3,8 +3,8 @@
     :headers="headers"
     :items="users"
     :search="search"
-    class="elevation-1"
-    style="margin: 10px"
+    class="elevation-5 ma-50"
+    style="margin: 50px; padding: 10px"
   >
     <template v-slot:top>
       <v-toolbar flat class="pt-3 mb-3">
