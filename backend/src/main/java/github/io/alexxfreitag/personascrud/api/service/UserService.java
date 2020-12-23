@@ -6,6 +6,6 @@ import github.io.alexxfreitag.personascrud.domain.model.User;
 import java.util.List;
 
 public interface UserService {
-    void saveUser(User user) throws UserAlreadyExistsException;
+    User saveUser(User user) throws UserAlreadyExistsException;
     List<User> getUsers();
 }
