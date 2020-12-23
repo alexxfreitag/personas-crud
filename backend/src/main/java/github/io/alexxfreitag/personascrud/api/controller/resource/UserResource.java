@@ -16,6 +16,9 @@ public interface UserResource {
     @GetMapping
     List<User> getUsers();
 
+    @GetMapping("/{id}")
+    ResponseEntity<User> getUser(@PathVariable UUID id);
+
     @PostMapping
     ResponseEntity<User> createUser(@RequestBody @Valid User user);
 
