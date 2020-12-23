@@ -3,24 +3,20 @@ package github.io.alexxfreitag.personascrud.api.controller;
 import github.io.alexxfreitag.personascrud.api.controller.resource.UserResource;
 import github.io.alexxfreitag.personascrud.api.service.UserService;
 import github.io.alexxfreitag.personascrud.domain.model.User;
-import github.io.alexxfreitag.personascrud.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
 public class UserController implements UserResource {
 
-    UserRepository userRepository;
     UserService userService;
 
-    public UserController(@Autowired UserRepository userRepository, @Autowired UserService userService) {
-        this.userRepository = userRepository;
+    public UserController(@Autowired UserService userService) {
         this.userService = userService;
     }
 
