@@ -54,15 +54,16 @@ public class User {
     @Size(max = 2, message = "Naturality must contains only 2 characters")
     private String naturality;
 
-    @CreationTimestamp
+    @Column(name = "created_at", columnDefinition = "timestamp default current_timestamp")
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
+    @Column(name = "updated_at", columnDefinition = "timestamp default current_timestamp")
     private LocalDateTime updatedAt;
 
     public User() {}
 
-    public User(String name, String cpf, String gender, String email, LocalDate dateOfBirth, String nacionality, String naturality) {
+    public User(String name, String cpf, String gender, String email, LocalDate dateOfBirth, String nacionality,
+                String naturality, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.name = name;
         this.cpf = cpf;
         this.gender = gender;
@@ -70,6 +71,8 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.nacionality = nacionality;
         this.naturality = naturality;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public UUID getId() {
@@ -134,6 +137,22 @@ public class User {
 
     public void setNaturality(String naturality) {
         this.naturality = naturality;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
