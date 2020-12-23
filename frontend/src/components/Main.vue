@@ -1,82 +1,114 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="users"
-    :search="search"
-    class="elevation-5 ma-50"
-    style="margin: 50px; padding: 10px"
-  >
-    <template v-slot:top>
-      <v-toolbar flat class="pt-3 mb-3">
-        <v-text-field v-model="search" label="Buscar" class="mx-4"></v-text-field>
+  <div>
+    <v-data-table
+      :headers="headers"
+      :items="users"
+      :search="search"
+      class="elevation-5 ma-50"
+      style="margin: 50px; padding: 10px"
+    >
+      <template v-slot:top>
+        <v-toolbar flat class="pt-3 mb-3">
+          <v-text-field v-model="search" label="Search" class="mx-4"></v-text-field>
 
-        <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="800px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" class="mb-2" v-bind="attrs" v-on="on">New user</v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{formTitle}}</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container class="inputs-container-dialog">
-                <v-row>
-                  <v-col cols="6">
-                    <v-text-field v-model="editedItem.name" label="Name" outlined></v-text-field>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-text-field v-model="editedItem.cpf" label="Cpf" outlined v-mask="'###.###.###-##'"></v-text-field>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-text-field v-model="editedItem.email" label="Email" outlined></v-text-field>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-autocomplete
-                      :items="['Male', 'Female']"
-                      v-model="editedItem.gender"
-                      label="Gender"
-                      outlined
-                    ></v-autocomplete>
-                  </v-col>
-                  <v-col cols="5">
-                    <v-text-field v-model="editedItem.dateOfBirth" label="Date of Birth" v-mask="'##/##/####'" outlined></v-text-field>
-                  </v-col>
-                  <v-col cols="5">
-                    <v-text-field v-model="editedItem.nacionality" label="Nacionality" outlined></v-text-field>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-text-field v-model="editedItem.naturality" label="Naturality" outlined maxlength="2"></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn color="orange darken-1" text @click="cleanFields">Clean</v-btn>
-              <v-spacer></v-spacer>
-              <v-btn color="red darken-1" text @click="closeDialog">Cancel</v-btn>
-              <v-btn color="green darken-1" text @click="save">Save</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:[`item.actions`]="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"
+          <v-spacer></v-spacer>
+          <v-dialog v-model="dialog" max-width="800px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="primary" class="mb-2" v-bind="attrs" v-on="on">New user</v-btn>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{formTitle}}</span>
+              </v-card-title>
+              <v-card-text>
+                <v-form ref="form" v-model="validForm">
+                  <v-container class="inputs-container-dialog">
+                    <v-row>
+                      <v-col cols="6">
+                        <v-text-field v-model="editedItem.name" label="Name" outlined :rules="rules.required"></v-text-field>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-text-field v-model="editedItem.cpf" label="Cpf" outlined v-mask="'###.###.###-##'" :rules="rules.required"></v-text-field>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-text-field v-model="editedItem.email" label="Email" outlined :rules="rules.email_invalid"></v-text-field>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-autocomplete
+                          :items="['Male', 'Female']"
+                          v-model="editedItem.gender"
+                          label="Gender"
+                          outlined
+                        ></v-autocomplete>
+                      </v-col>
+                      <v-col cols="5">
+                        <v-text-field v-model="editedItem.dateOfBirth" label="Date of Birth" v-mask="'##/##/####'" outlined :rules="rules.required"></v-text-field>
+                      </v-col>
+                      <v-col cols="5">
+                        <v-text-field v-model="editedItem.nacionality" label="Nacionality" outlined></v-text-field>
+                      </v-col>
+                      <v-col cols="2">
+                        <v-text-field v-model="editedItem.naturality" label="Naturality" outlined maxlength="2"></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="12" sm="12" md="12">
+                        <v-alert
+                          dense
+                          outlined
+                          type="error"
+                          v-if="showMessageError"
+                        >
+                          {{ messageError }}
+                        </v-alert>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="red darken-1" text @click="closeDialog">Cancel</v-btn>
+                <v-btn color="green darken-1" text @click="save" :disabled="!validForm">Save</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-icon
+          small
+          class="mr-2"
+          @click="editItem(item)"
+        >
+          mdi-pencil
+        </v-icon>
+        <v-icon
+          small
+          @click="deleteItem(item)"
+        >
+          mdi-delete
+        </v-icon>
+      </template>
+    </v-data-table>
+    <v-snackbar
+        v-model="snackSuccess"
+        :timeout="5000"
+        color="green"
       >
-        mdi-pencil
-      </v-icon>
-      <v-icon
-        small
-        @click="deleteItem(item)"
-      >
-        mdi-delete
-      </v-icon>
-    </template>
-  </v-data-table>
+        {{ snackSuccessText }}
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            dark
+            icon
+            v-bind="attrs"
+            @click.native="snackSuccess = false"
+          >
+            <v-icon medium color="white"> mdi-close </v-icon>
+          </v-btn>
+        </template>
+      </v-snackbar>
+    </div>
 </template>
 
 <script>
@@ -91,6 +123,11 @@ export default {
       dialog: false,
       search: '',
       editedIndex: -1,
+      validForm: false,
+      snackSuccessText: '',
+      snackSuccess: false,
+      showMessageError: false,
+      messageError: '',
       headers: [
         { text: "Name", value: "name" },
         { text: "CPF", value: "cpf" },
@@ -118,7 +155,15 @@ export default {
         dateOfBirth: '',
         nacionality: '',
         naturality: ''
-      }
+      },
+      rules: {
+        required: [
+          v => !!v || 'Required.'
+        ],
+        email_invalid: [
+          v => !v ? true : /.+@.+\..+/.test(v) || 'Email must be valid',
+        ]
+      },
     }
   },
 
@@ -153,41 +198,48 @@ export default {
 
     closeDialog() {
       this.dialog = false;
+      this.$refs.form.reset();
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
 
-    cleanFields() {
-      /*this.name= '';
-      this.cpf= '';
-      this.email= '';
-      this.gender= '';
-      this.dateOfBirth= '';
-      this.nacionality= '';
-      this.naturality= '';*/
-    },
-
     save() {
 
-      if (this.editedIndex > -1) {
-        UserService.update(this.editedItem.id, this.editedItem);
-        Object.assign(this.users[this.editedIndex], this.editedItem);
-      } else {
-        UserService.register(this.editedItem)
+      this.showMessageError = false;
+      this.$refs.form.validate();
+
+      if (this.validForm) {
+
+        if (this.editedIndex > -1) {
+          UserService.update(this.editedItem.id, this.editedItem)
           .then(() => {
-            alert('User registered sucessfully.')
             this.closeDialog();
-            this.cleanFields();
-            this.initialize();
+            this.snackSuccessText = 'User updated sucessfully.'
+            this.snackSuccess = true;
+            Object.assign(this.users[this.editedIndex], this.editedItem);
           })
           .catch(err => {
-            alert(JSON.stringify(err.response.data));
+            console.log(err.response);
+            this.messageError = err.response.data.toString();
+            this.showMessageError = true;
           });
-        this.users.push(this.editedItem)
+        } else {
+          UserService.register(this.editedItem)
+          .then(response => {
+            this.closeDialog();
+            this.snackSuccessText = 'User registered sucessfully.'
+            this.snackSuccess = true;
+            this.users.push(response);
+          })
+          .catch(err => {
+            console.log(err.response);
+            this.messageError = err.response.data.toString();
+            this.showMessageError = true;
+          });
+        }        
       }
-      this.closeDialog();
     },
 
     editItem (item) {
@@ -208,7 +260,7 @@ export default {
 
 <style scoped>
   .inputs-container-dialog .col  {
-    height: 70px;
+    height: 90px;
     padding: 3px;
   }
 </style>
