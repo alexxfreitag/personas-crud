@@ -1,6 +1,7 @@
 package github.io.alexxfreitag.personascrud.api.controller;
 
 import github.io.alexxfreitag.personascrud.api.controller.resource.UserResource;
+import github.io.alexxfreitag.personascrud.api.exception.UserAlreadyExistsException;
 import github.io.alexxfreitag.personascrud.domain.model.User;
 import github.io.alexxfreitag.personascrud.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,8 @@ public class UserController implements UserResource {
     @Override
     public ResponseEntity<User> createUser(User user) {
 
-        System.out.println(user.toString());
         if (userRepository.existsByCpf(user.getCpf())) {
-            return ResponseEntity.badRequest().build();
+            throw new UserAlreadyExistsException("A user with this CPF already exists.");
         }
         User userCreated = userRepository.save(user);
         return ResponseEntity.ok(userCreated);
