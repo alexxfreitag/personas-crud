@@ -44,3 +44,7 @@ $ cd frontend/
 $ yarn install
 $ yarn start
 ```
+
+<p align="center">
+  <a href="https://github.com/alexxfreitag/personas-crud/blob/master/.github/PersonaCRUDRoutes.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
+</p>
