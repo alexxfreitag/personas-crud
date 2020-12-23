@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class UserController implements UserResource {
@@ -35,6 +37,16 @@ public class UserController implements UserResource {
 
         User savedUser = this.userService.saveUser(user);
         return ResponseEntity.ok(savedUser);
+    }
+
+    @Override
+    public ResponseEntity<User> deleteUser(UUID id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            this.userRepository.delete(user.get());
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }
