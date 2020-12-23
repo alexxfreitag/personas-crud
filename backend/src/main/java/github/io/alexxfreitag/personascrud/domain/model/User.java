@@ -11,7 +11,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -26,30 +28,33 @@ public class User {
     private UUID id;
 
     @Column(name = "name")
-    @NotEmpty(message = "Field 'name' is required")
+    @NotEmpty(message = "Name is required")
     private String name;
 
     @Column(name = "cpf")
-    @NotEmpty(message = "Field 'cpf' is required")
+    @NotEmpty(message = "Cpf is required")
+    @Size(max = 11, message = "Cpf must contains only 11 numbers")
     private String cpf;
 
     @Column(name = "gender")
     private String gender;
 
     @Column(name = "email")
-    @Email
+    @Email(message = "Email must be valid")
     private String email;
 
     @Column(name = "date_of_birth")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
+    @NotBlank(message = "Date of birth is required")
     private LocalDate dateOfBirth;
 
     @Column(name = "nacionality")
     private String nacionality;
 
-    @Column(name = "naturality")
+    @Column(name = "naturality", length = 2)
+    @Size(max = 2, message = "Naturality must contains only 2 characters")
     private String naturality;
 
     @CreationTimestamp
