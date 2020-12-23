@@ -5,7 +5,7 @@
 <h2 align="center">🚧 Under construction... 🚧</h2>
 
 <h4 align="center">
-  A ReactJs and Spring Boot application with PostgreSQL to manager users.
+  A VueJs and Spring Boot application with PostgreSQL to manager users.
 </h4>
 
 ## 🎯 To do
@@ -13,7 +13,7 @@
 - [ ] (Backend) Finish unit tests
 - [ ] (Backend) Create documentation (Swagger)
 - [ ] (Frontend) Include form validation
-- [ ] (Frontend) Handle errors returned by the backend
+- [x] (Frontend) Handle errors returned by the backend
 
 ## ✔ Features
 - List, create, delete and update users
@@ -42,7 +42,7 @@ $ ./mvnw spring-boot:run
 # Go into frontend folder, install dependencies and start the client
 $ cd frontend/
 $ yarn install
-$ yarn start
+$ yarn serve
 ```
 
 <p align="center">
