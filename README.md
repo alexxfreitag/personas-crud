@@ -5,7 +5,7 @@
 <h2 align="center">🚧 Under construction... 🚧</h2>
 
 <h4 align="center">
-  A VueJs and Spring Boot application with PostgreSQL to manager users.
+  A VueJs and Spring Boot application with H2 database to manager users.
 </h4>
 
 ## 🎯 To do
@@ -36,8 +36,14 @@ $ cd personas-crud
 
 # Go into the backend folder, install dependencies and start the server
 $ cd backend/
-$ mvn install
+$ mvn clean package
 $ ./mvnw spring-boot:run
+
+OR
+
+# Pull docker image from Docker HUB and run
+$ docker pull alexxfreitag/personas-crud-api
+$ docker run -p 9090:9090 alexxfreitag/personas-crud-api
 
 # Go into frontend folder, install dependencies and start the client
 $ cd frontend/
