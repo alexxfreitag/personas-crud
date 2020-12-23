@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles({ "test" })
 public class UserControllerTest {
 
     private static final String NAME = "Alex Freitag";

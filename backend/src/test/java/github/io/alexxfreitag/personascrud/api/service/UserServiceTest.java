@@ -21,7 +21,6 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles({ "test" })
 public class UserServiceTest {
 
     private static final String NOME = "Alex Freitag";
