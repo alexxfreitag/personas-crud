@@ -25,7 +25,18 @@
 
 ## :information_source: How To Use
 
-To clone and run this application, you'll need Git, Maven and Yarn installed on your computer. From your command line:
+You can use Docker to run the application.
+```bash
+# backend
+$ docker pull alexxfreitag/personas-crud-api
+$ docker run -p 9090:9090 alexxfreitag/personas-crud-api
+
+# frontend
+$ docker pull alexxfreitag/personas-crud-client
+$ docker run -p 8080:8080 alexxfreitag/personas-crud-client
+```
+
+To clone and run this application locally, you'll need Git, Maven and Yarn installed on your computer. From your command line:
 
 ```bash
 # Clone this repository
@@ -38,12 +49,6 @@ $ cd personas-crud
 $ cd backend/
 $ mvn clean package
 $ mvn spring-boot:run
-
-OR
-
-# Pull docker image from Docker HUB and run
-$ docker pull alexxfreitag/personas-crud-api
-$ docker run -p 9090:9090 alexxfreitag/personas-crud-api
 
 # Go into frontend folder, install dependencies and start the client
 $ cd frontend/
