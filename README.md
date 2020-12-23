@@ -9,7 +9,7 @@
 </h4>
 
 ## 🎯 To do
-- [ ] (Both) Create a docker image for both servers
+- [ ] (Both) Create a docker image
 - [ ] (Backend) Finish unit tests
 - [ ] (Frontend) Include form validation
 - [ ] (Frontend) Handle errors returned by the backend
