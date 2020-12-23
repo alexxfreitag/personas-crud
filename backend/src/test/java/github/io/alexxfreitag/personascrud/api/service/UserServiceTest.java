@@ -13,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.mockito.Mockito.verify;
@@ -36,7 +37,7 @@ public class UserServiceTest {
     public void setUp() throws Exception {
         userService = new UserServiceImpl(userRepository);
 
-        user = new User(NOME, CPF, "Masculino", "alex@email.com", LocalDate.now(), "Brazil", "SC");
+        user = new User(NOME, CPF, "Masculino", "alex@email.com", LocalDate.now(), "Brazil", "SC", LocalDateTime.now(), LocalDateTime.now());
 
     }
 

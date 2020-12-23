@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -54,7 +55,7 @@ public class UserControllerTest {
     public void setUp() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
         userService = new UserServiceImpl(userRepository);
-        user = new User(NAME, CPF, GENDER, EMAIL, LocalDate.now(), NACIONALITY, NATURALITY);
+        user = new User(NAME, CPF, GENDER, EMAIL, LocalDate.now(), NACIONALITY, NATURALITY, LocalDateTime.now(), LocalDateTime.now());
     }
 
     @Test
@@ -70,7 +71,7 @@ public class UserControllerTest {
 
     @Test
     public void shouldNotCreateUserWithInvalidData_bad() throws Exception {
-        user = new User("", "", "Masculino", "alex@email.com", LocalDate.now(), "Brazil", "SC");
+        user = new User("", "", "Masculino", "alex@email.com", LocalDate.now(), "Brazil", "SC", LocalDateTime.now(), LocalDateTime.now());
         this.mockMvc.perform(post("/users")).andExpect(MockMvcResultMatchers.status().isBadRequest());
 
     }
