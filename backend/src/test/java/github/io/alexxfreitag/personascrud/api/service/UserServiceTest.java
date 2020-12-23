@@ -7,7 +7,9 @@ import github.io.alexxfreitag.personascrud.domain.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
@@ -17,6 +19,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
+@SpringBootTest
+@ActiveProfiles({ "test" })
 public class UserServiceTest {
 
     private static final String NOME = "Alex Freitag";
