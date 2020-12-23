@@ -1,6 +1,7 @@
 package github.io.alexxfreitag.personascrud.api.service.impl;
 
 import github.io.alexxfreitag.personascrud.api.exception.UserAlreadyExistsException;
+import github.io.alexxfreitag.personascrud.api.exception.UserNotFoundException;
 import github.io.alexxfreitag.personascrud.api.service.UserService;
 import github.io.alexxfreitag.personascrud.domain.model.User;
 import github.io.alexxfreitag.personascrud.domain.repository.UserRepository;
@@ -18,6 +19,9 @@ import static org.springframework.http.ResponseEntity.ok;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final String USER_NOT_FOUND = "User not found";
+    private static final String USER_ALREADY_EXISTS = "A user with this CPF already exists";
+
     private final UserRepository userRepository;
 
     public UserServiceImpl(@Autowired UserRepository userRepository) {
@@ -31,23 +35,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<User> createUser(User user) throws UserAlreadyExistsException{
+    public ResponseEntity<User> createUser(User user) {
         Optional<User> userFounded = this.userRepository.findByCpf(user.getCpf());
         if (userFounded.isPresent()) {
-            throw new UserAlreadyExistsException("A user with this CPF already exists.");
+            throw new UserAlreadyExistsException(USER_ALREADY_EXISTS);
         }
         return ResponseEntity.ok(saveUser(user));
     }
 
     @Override
-    public ResponseEntity<?> updateUser(UUID id, User user) throws UserAlreadyExistsException{
+    public ResponseEntity<User> updateUser(UUID id, User user) {
 
         return this.userRepository.findById(id).map(userData -> {
             if (!user.getCpf().isEmpty()) {
                 if (!user.getCpf().equals(userData.getCpf())) {
                     Optional<User> userFounded = this.userRepository.findByCpf(user.getCpf());
                     if (userFounded.isPresent()) {
-                        throw new UserAlreadyExistsException("A user with this CPF already exists.");
+                        throw new UserAlreadyExistsException(USER_ALREADY_EXISTS);
                     }
                     userData.setCpf(user.getCpf());
                 }
@@ -60,17 +64,17 @@ public class UserServiceImpl implements UserService {
             if (!user.getNaturality().isEmpty()) userData.setNaturality(user.getNaturality());
             userData.setUpdatedAt(LocalDateTime.now());
             return ResponseEntity.ok(saveUser(userData));
-        }).orElseGet(() -> ResponseEntity.notFound().build());
+        }).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
     }
 
     @Override
-    public ResponseEntity<?> deleteUser(UUID id) {
+    public ResponseEntity<User> deleteUser(UUID id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             this.userRepository.delete(user.get());
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.notFound().build();
+        throw new UserNotFoundException(USER_NOT_FOUND);
     }
 
 
@@ -80,11 +84,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> getUser(UUID id) {
+    public ResponseEntity<User> getUser(UUID id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
         }
-        return ResponseEntity.notFound().build();
+        throw new UserNotFoundException(USER_NOT_FOUND);
     }
 }
