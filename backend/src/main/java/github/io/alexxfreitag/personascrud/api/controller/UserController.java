@@ -44,4 +44,19 @@ public class UserController implements UserResource {
         return ResponseEntity.notFound().build();
     }
 
+    @Override
+    public ResponseEntity<?> updateUser(UUID id, User user) {
+        return this.userRepository.findById(id).map(userData -> {
+            if (!user.getCpf().isEmpty()) userData.setCpf(user.getCpf());
+            if (!user.getName().isEmpty()) userData.setName(user.getName());
+            if (!user.getDateOfBirth().toString().isEmpty()) userData.setDateOfBirth(user.getDateOfBirth());
+            if (!user.getEmail().isEmpty()) userData.setEmail(user.getEmail());
+            if (!user.getGender().isEmpty()) userData.setGender(user.getGender());
+            if (!user.getNacionality().isEmpty()) userData.setNacionality(user.getNacionality());
+            if (!user.getNaturality().isEmpty()) userData.setNaturality(user.getNaturality());
+            this.userRepository.save(userData);
+            return ResponseEntity.noContent().build();
+        }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 }

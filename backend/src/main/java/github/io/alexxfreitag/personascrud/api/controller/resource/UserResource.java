@@ -21,4 +21,7 @@ public interface UserResource {
 
     @DeleteMapping("/{id}")
     ResponseEntity<User> deleteUser(@PathVariable UUID id);
+
+    @PutMapping("/{id}")
+    ResponseEntity<?> updateUser(@PathVariable UUID id, @RequestBody @Valid User user);
 }
