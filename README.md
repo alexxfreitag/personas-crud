@@ -2,8 +2,6 @@
     Persona CRUD
 </h1>
 
-<h2 align="center">🚧 Under construction... 🚧</h2>
-
 <h4 align="center">
   A VueJs and Spring Boot application with H2 database to manager users.
 </h4>
